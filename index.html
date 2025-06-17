@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Candidature Boosteur – Brawl Stars</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <h1>Candidature Boosteur – Brawl Stars</h1>
+  <form id="formCandidature">
+    <label>1. Pseudo Discord :</label>
+    <input type="text" name="pseudo" required />
+
+    <label>2. Total de trophées :</label>
+    <input type="number" name="trophees" required min="0" />
+
+    <label>3. Rang le plus haut atteint :</label>
+    <select name="rang" required>
+      <option value="">--Choisir--</option>
+      <option value="bronze">Bronze</option>
+      <option value="argent">Argent</option>
+      <option value="or">Or</option>
+      <option value="diamant">Diamant</option>
+      <option value="mythique">Mythique</option>
+      <option value="légendaire">Légendaire</option>
+      <option value="master">Master</option>
+      <option value="pro">Pro</option>
+    </select>
+
+    <label>4. Parles-tu français ?</label>
+    <select name="francais" required>
+      <option value="">--Choisir--</option>
+      <option value="oui">Oui</option>
+      <option value="non">Non</option>
+    </select>
+
+    <label>5. Combien de brawlers rang max as-tu ?</label>
+    <input type="number" name="rangmax" required min="0" />
+
+    <label>6. Depuis combien de temps joues-tu à Brawl Stars ? (ex : 1 an, 6 mois)</label>
+    <input type="text" name="temps_jeu" />
+
+    <label>7. Combien de comptes possèdes-tu ?</label>
+    <input type="number" name="comptes" min="1" />
+
+    <label>8. As-tu déjà fait du boost pour quelqu’un ?</label>
+    <select name="boost_experience">
+      <option value="">--Choisir--</option>
+      <option value="oui">Oui</option>
+      <option value="non">Non</option>
+    </select>
+
+    <label>9. Peux-tu jouer tous les jours ?</label>
+    <select name="dispo">
+      <option value="">--Choisir--</option>
+      <option value="oui">Oui</option>
+      <option value="non">Non</option>
+    </select>
+
+    <label>10. Pourquoi veux-tu rejoindre notre équipe de boost ?</label>
+    <textarea name="motivation" rows="4"></textarea>
+
+    <label>11. As-tu un micro et un casque pour communiquer ?</label>
+    <select name="micro_casque">
+      <option value="">--Choisir--</option>
+      <option value="oui">Oui</option>
+      <option value="non">Non</option>
+    </select>
+
+    <label>12. Quel est ton fuseau horaire ?</label>
+    <input type="text" name="fuseau_horaire" placeholder="ex: GMT+1" />
+
+    <label>13. Quelle est ta disponibilité horaire (ex : soir, week-end) ?</label>
+    <input type="text" name="dispo_horaire" />
+
+    <label>14. Quelle est ta moyenne de trophées par compte ?</label>
+    <input type="number" name="moyenne_trophees" min="0" />
+
+    <label>15. As-tu déjà été banni sur Brawl Stars ?</label>
+    <select name="ban">
+      <option value="">--Choisir--</option>
+      <option value="oui">Oui</option>
+      <option value="non">Non</option>
+    </select>
+
+    <label>16. Es-tu capable de respecter la confidentialité et les règles du serveur ?</label>
+    <select name="regles">
+      <option value="">--Choisir--</option>
+      <option value="oui">Oui</option>
+      <option value="non">Non</option>
+    </select>
+
+    <label>17. Combien de temps par jour peux-tu consacrer au boost ?</label>
+    <input type="text" name="temps_boost" />
+
+    <label>18. Possèdes-tu un PC ou un smartphone pour faire du boost ?</label>
+    <select name="materiel">
+      <option value="">--Choisir--</option>
+      <option value="pc">PC</option>
+      <option value="smartphone">Smartphone</option>
+      <option value="les deux">Les deux</option>
+      <option value="aucun">Aucun</option>
+    </select>
+
+    <label>19. Quel est ton style de jeu préféré (ex : attaque, défense) ?</label>
+    <input type="text" name="style_jeu" />
+
+    <label>20. As-tu des connaissances en triche ou hacks ?</label>
+    <select name="triche">
+      <option value="">--Choisir--</option>
+      <option value="oui">Oui</option>
+      <option value="non">Non</option>
+    </select>
+
+    <label>21. Peux-tu assurer un service régulier et fiable ?</label>
+    <select name="service_regulier">
+      <option value="">--Choisir--</option>
+      <option value="oui">Oui</option>
+      <option value="non">Non</option>
+    </select>
+
+    <label>22. Comment évalues-tu ton comportement en équipe ?</label>
+    <input type="text" name="comportement" />
+
+    <label>23. Quel est ton âge ?</label>
+    <input type="number" name="age" min="10" max="100" />
+
+    <label>24. As-tu déjà participé à une équipe de boost auparavant ?</label>
+    <select name="experience_equipe">
+      <option value="">--Choisir--</option>
+      <option value="oui">Oui</option>
+      <option value="non">Non</option>
+    </select>
+
+    <label>25. Autres remarques / commentaires :</label>
+    <textarea name="commentaires" rows="3"></textarea>
+
+    <button type="submit">Envoyer candidature</button>
+  </form>
+
+  <script>
+    document.getElementById('formCandidature').addEventListener('submit', async function(e) {
+      e.preventDefault();
+
+      const data = Object.fromEntries(new FormData(this));
+      const pseudo = data.pseudo.trim();
+      const trophees = parseInt(data.trophees, 10);
+      const rang = data.rang.toLowerCase();
+      const francais = data.francais === "oui";
+      const rangmax = parseInt(data.rangmax, 10);
+
+      // Liste des rangs dans l'ordre
+      const rangsOrdre = ["bronze", "argent", "or", "diamant", "mythique", "légendaire", "master", "pro"];
+      const rangIndex = rangsOrdre.indexOf(rang);
+      const minRangIndex = rangsOrdre.indexOf("diamant");
+
+      const estValide = trophees >= 30000 && rangIndex >= minRangIndex && francais && rangmax >= 2;
+
+      // Construire le message détaillé avec toutes les réponses
+      let message = `**Candidature de ${pseudo}**\n\n`;
+      for (const [key, value] of Object.entries(data)) {
+        message += `**${key.replace(/_/g, ' ')} :** ${value || "Non renseigné"}\n`;
+      }
+
+      // Ajouter verdict en début du message
+      if (estValide) {
+        message = "✅ **Cette personne remplit les critères de sélection.**\n\n" + message;
+      } else {
+        message = "❌ **Cette personne ne remplit PAS les critères de sélection.**\n\n" + message;
+      }
+
+      try {
+        await fetch("https://discord.com/api/webhooks/1384569022464397372/L6BOAqeIlltlEzIMWcnY0HDkKlSp-OjsjAYogSwpanAYFSqCyb60T3XBBw2Y5V4kHTel", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ content: message })
+        });
+        alert("Candidature envoyée !");
+        this.reset();
+      } catch (error) {
+        alert("Erreur lors de l'envoi de la candidature.");
+        console.error(error);
+      }
+    });
+  </script>
+</body>
+</html>
