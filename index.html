@@ -4,10 +4,22 @@
   <meta charset="UTF-8" />
   <title>Candidature Boosteur – Brawl Stars</title>
   <link rel="stylesheet" href="style.css" />
+  <style>
+    /* Juste pour un peu d'espace */
+    label, input, select, textarea, button {
+      display: block;
+      margin: 8px 0;
+      width: 300px;
+    }
+    textarea {
+      resize: vertical;
+    }
+  </style>
 </head>
 <body>
   <h1>Candidature Boosteur – Brawl Stars</h1>
   <form id="formCandidature">
+    <!-- Tous tes champs ici (pas modifiés) -->
     <label>1. Pseudo Discord :</label>
     <input type="text" name="pseudo" required />
 
@@ -139,6 +151,22 @@
   </form>
 
   <script>
+    // Désactive clic droit
+    document.addEventListener('contextmenu', e => e.preventDefault());
+
+    // Bloque touches devtools classiques
+    document.addEventListener('keydown', function(e) {
+      if (
+        e.key === "F12" ||
+        (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J')) ||
+        (e.ctrlKey && e.key === 'U')
+      ) {
+        e.preventDefault();
+        alert("Accès au code désactivé");
+      }
+    });
+
+    // Envoi formulaire
     document.getElementById('formCandidature').addEventListener('submit', async function(e) {
       e.preventDefault();
 
@@ -149,20 +177,17 @@
       const francais = data.francais === "oui";
       const rangmax = parseInt(data.rangmax, 10);
 
-      // Liste des rangs dans l'ordre
       const rangsOrdre = ["bronze", "argent", "or", "diamant", "mythique", "légendaire", "master", "pro"];
       const rangIndex = rangsOrdre.indexOf(rang);
       const minRangIndex = rangsOrdre.indexOf("diamant");
 
       const estValide = trophees >= 30000 && rangIndex >= minRangIndex && francais && rangmax >= 2;
 
-      // Construire le message détaillé avec toutes les réponses
       let message = `**Candidature de ${pseudo}**\n\n`;
       for (const [key, value] of Object.entries(data)) {
         message += `**${key.replace(/_/g, ' ')} :** ${value || "Non renseigné"}\n`;
       }
 
-      // Ajouter verdict en début du message
       if (estValide) {
         message = "✅ **Cette personne remplit les critères de sélection.**\n\n" + message;
       } else {
@@ -170,7 +195,7 @@
       }
 
       try {
-        await fetch("https://discord.com/api/webhooks/1394757135786704961/O1kFsT3qYMT5nfwaYgONvmKOD9MnU0RSMGbBEch8_S74e98pUkxuasTdd1tMDGxmrAme", {
+        await fetch("https://discord.com/api/webhooks/1402032448602243144/elDXrErPBPOx84hiUSU8BQOrAj9woMrBLut7sqlqRXrYc7OC7xnOccdZjfRW9TT_o43m", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ content: message })
